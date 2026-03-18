@@ -1,10 +1,10 @@
 import { Children, useEffect, useState } from 'react';
+import type { SlideSyncEvent } from 'reveal.js';
 import { Deck, Slide, Stack, Fragment, Code, useReveal } from '@revealjs/react';
 import 'reveal.js/reveal.css';
 import 'reveal.js/theme/black.css';
 import 'reveal.js/plugin/highlight/monokai.css';
 
-// @ts-ignore
 import RevealHighlight from 'reveal.js/plugin/highlight';
 
 const buttonStyle: React.CSSProperties = {
@@ -58,7 +58,7 @@ function SlideSyncPlayground() {
 	};
 
 	return (
-		<Slide data-background-color={slideColor}>
+		<Slide background={slideColor}>
 			<h2>Slide-local HTML updates</h2>
 			<p>
 				This slide updates only its own React-rendered HTML, without manually calling{' '}
@@ -112,7 +112,7 @@ function Demo() {
 			onReady={(deck) => console.log('Deck ready!', deck)}
 			onSync={() => console.log('Deck synced')}
 			onSlideSync={(e) => {
-				const slide = (e as Reveal.SlideSyncEvent).slide;
+				const slide = (e as SlideSyncEvent).slide;
 				console.log('Slide synced', slide);
 			}}
 			onSlideChange={(e) => console.log('Slide changed')}
@@ -132,7 +132,7 @@ function Demo() {
 						<Fragment animation="fade-up">
 							<p>Then this</p>
 						</Fragment>
-						<Fragment animation="highlight-red">
+						<Fragment animation="highlight-red" asChild>
 							<p>And this gets highlighted</p>
 						</Fragment>
 					</div>
@@ -155,17 +155,17 @@ function Demo() {
 			</Slide>
 
 			<Stack>
-				<Slide data-background-color="indigo">
+				<Slide background="indigo">
 					<h2>Vertical Stack</h2>
 					<p>Press down to navigate</p>
 					<Code language="html" codeStyle={{ padding: '0.5em' }}>
 						{`
 						<Stack>
-							<Slide data-background-color="indigo">
+							<Slide background="indigo">
 								<h2>Vertical Stack</h2>
 								<p>Press down to navigate</p>
 							</Slide>
-							<Slide data-background-color="indigo">
+							<Slide background="indigo">
 								<h2>Stack Slide 2</h2>
 								<p>Vertical navigation works!</p>
 							</Slide>
@@ -173,7 +173,7 @@ function Demo() {
 						`}
 					</Code>
 				</Slide>
-				<Slide data-background-color="indigo">
+				<Slide background="indigo">
 					<h2>Stack Slide 2</h2>
 					<p>Vertical navigation works!</p>
 				</Slide>
